@@ -1,0 +1,4 @@
+.venv
+model/
+vector_db/
+secrets.toml
