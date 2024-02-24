@@ -1,3 +1,4 @@
+import toml
 import streamlit as st
 from streamlit_chat import message
 import random
@@ -7,7 +8,9 @@ from langchain.vectorstores import FAISS
 import cohere
 
 
-api_key = "vEjPvxBmPghBYYCtAwkEtuDbWQzib8iMtLA7lLwX"
+
+parsed_toml = toml.load("secrets.toml")
+api_key = parsed_toml['api_key']
 co = cohere.Client(api_key)
 
 # modelPath = "sentence-transformers/all-mpnet-base-v2"
@@ -19,17 +22,21 @@ co = cohere.Client(api_key)
 # save_directory = "vector_db"
 # database = FAISS.load_local(save_directory,embeddings)
 
-model_path = "Palistha/finetuned-t5-small"
-tokenizer = "Palistha/finetuned-t5-small"
+# model_path = "Palistha/finetuned-t5-small"
+# tokenizer = "Palistha/finetuned-t5-small"
 
-# model_path = "Palistha/finetuned-t5-base"
-# tokenizer = "Palistha/Finetuned-t5-base"
+# model_path = "Palistha/finetuned-gpt2"
+# tokenizer = "Palistha/finetuned-gpt2"
+
+model_path = "Palistha/GPT-2-finetuned-model"
+tokenizer = "Palistha/GPT-2-finetuned-model"
 # max_len=1024
 with open("data/file.txt", 'r') as file:
     lst = file.readlines()
     data = [item.strip() for item in lst]
 
 
+st.subheader("Ask About TAI.")
 # Display chat messages from history on app rerun
 if 'messages' not in st.session_state:
     st.session_state.messages = []
@@ -75,17 +82,23 @@ if query:
             for idx, r in enumerate(response):
                 context += r.document['text']
                 context += " "
-            if not context.endswith("."):
-                context += "."
+            # if not context.endswith("."):
+            #     context += "."
             if not query.endswith("?"):
                 query += "?"
-            answer = generate_answer(model_path,context,query)
+
+            output_text = generate_answer(model_path,context,query)
+            # import pdb; pdb.set_trace()
+            input_texts = context + " " + query
+            parts = output_text.split(input_texts)
+            ans = parts[-1].strip()
             source = get_urls(context)
+            output = ans + " "  + "\n Source:" + source
             try:
-                if math.isnan(float(answer)):
+                if math.isnan(float(ans)):
                     output =  "Sorry, I could not generate a valid answer."
             except (ValueError, TypeError):
-                output = answer + " "  + "\n Source:" + source
+                output = ans + " "  + "\n Source:" + source 
             st.write(output)
             st.session_state.messages.append({"role": "assistant", "content": output})
 
