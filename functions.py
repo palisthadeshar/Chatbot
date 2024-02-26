@@ -1,6 +1,5 @@
 import re
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
-from transformers import T5ForConditionalGeneration, T5TokenizerFast
 import math
 
 
@@ -9,22 +8,19 @@ def get_urls(context):
     url_pattern = r'https?://tai.com.np\S+'
     urls = re.findall(url_pattern, context)
     urls = set(urls)
-    links = ""
+    links = []
     for url in urls:
-        links += url
-        links += " "
-    return links
+        links.append(url)
+    return links[:2]
 
 
 def load_model(model_path):
-    # model = T5ForConditionalGeneration.from_pretrained(model_path)
     model = GPT2LMHeadModel.from_pretrained(model_path)
     return model
 
 
 def load_tokenizer(tokenizer_path):
     tokenizer = GPT2Tokenizer.from_pretrained(tokenizer_path)
-    # tokenizer = T5TokenizerFast.from_pretrained(tokenizer_path)
     return tokenizer
 
 
