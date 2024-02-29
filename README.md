@@ -2,18 +2,18 @@
 
 ### Overview
 
-The Chatbot is developed using FAISS Similarity Search and Fine-tuned T5 Model. It is an advanced conversational system designed to provide accurate responses by combining two powerful techniques: similarity search with FAISS and context-based answer generation using a fine-tuned T5 model.
+The Chatbot is developed using FAISS Similarity Search and Fine-tuned T5 Model. It is an advanced conversational system designed to provide accurate responses by combining two powerful techniques: similarity search with FAISS and context-based answer generation using a fine-tuned GPT-2 model.
 
 ### Key Features:
 * FAISS Integration: Utilizes FAISS (Facebook AI Similarity Search) for efficient similarity search within a large corpus of dataset that was scraped from target website.
 
 * Document Similarity Search: Retrieves relevant documents based on the semantic similarity with the user query using FAISS.
 
-* Fine-tuned T5 Model: Employs a fine-tuned T5 (Text-To-Text Transfer Transformer) model for contextual answer generation based on the context of the retrieved documents.
+* Fine-tuned GPT-2 Model: Employs a fine-tuned GPT-2 model for contextual answer generation based on the context of the retrieved documents.
 
 * Contextual Answer Generation: The chatbot analyzes the retrieved documents to generate a coherent and contextually relevant answer to the user query.
 
-* Response: The generated answer is presented to the user via the streamlit interface.
+* Response: The generated answer is presented to the user via the streamlit interface along with the link from where the answer is extracted.
 
 
 ### Technologies Used
@@ -33,7 +33,7 @@ The Chatbot is developed using FAISS Similarity Search and Fine-tuned T5 Model. 
 
 * Document Retrieval: Relevant documents are retrieved based on the similarity scores obtained from FAISS.
 
-* Fine-tuned T5 Model: The retrieved documents serve as context inputs to a fine-tuned T5 model.
+* Fine-tuned GPT-2 model: The retrieved documents serve as context inputs to a fine-tuned GPT-2 model.
 
 * Answer Generation: The T5 model generates contextual answers based on the information extracted from the retrieved documents.
 
@@ -87,3 +87,7 @@ On macOS and Linux: ```source venv/bin/activate```
 * requirements.txt: File listing all Python dependencies required for the project.
 
 * README.md: Documentation file providing information about the project.
+
+
+### Medium article link
+https://medium.com/@palisthadeshar/unveiling-the-machine-learning-realm-my-internship-journey-at-tai-33eb8efb9045
